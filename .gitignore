@@ -12,3 +12,4 @@ app/src/release/res/values/google_maps_api.xml
 app/src/debug/res/values/google_maps_api.xml
 /Users/user/AndroidStudioProjects/AndroidHillfortApp/app/src/debug/res/values/google_maps_api.xml
 app/google-services.json
+values/*
