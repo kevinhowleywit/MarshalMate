@@ -9,12 +9,13 @@
         android:roundIcon="@mipmap/ic_app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activities.NewHomeActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".activities.HomeActivity"
             android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.RegisterActivity" />
-        <activity android:name=".activities.MainActivity" />
         <activity android:name=".activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

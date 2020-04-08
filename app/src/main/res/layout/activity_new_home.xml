@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.MainActivity">
-
+    tools:context=".activities.NewHomeActivity">
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/app_bar_layout"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

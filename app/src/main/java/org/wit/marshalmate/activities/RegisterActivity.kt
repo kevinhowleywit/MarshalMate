@@ -39,8 +39,9 @@ class RegisterActivity : AppCompatActivity() {
                 showProgress()
                 auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(){task ->
                     if(task.isSuccessful){
-                        val intent = Intent(this,MainActivity::class.java)
+                        val intent = Intent(this,NewHomeActivity::class.java)
                         startActivity(intent)
+                        hideProgress()
                     }
                     else{
                         toast("Registration Error: ${task.exception?.message}")
@@ -51,8 +52,6 @@ class RegisterActivity : AppCompatActivity() {
             }
 
         }
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -71,12 +70,8 @@ class RegisterActivity : AppCompatActivity() {
                 finish()
             }
         }
-
         return super.onOptionsItemSelected(item)
     }
-
-
-
 
 
     fun showProgress() {
