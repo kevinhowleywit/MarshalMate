@@ -1,54 +1,102 @@
 package org.wit.marshalmate.activities
 
-import android.os.Bundle
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
-import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.material.navigation.NavigationView
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
-import android.view.Menu
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.FragmentTransaction
+import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.content_home.*
 import org.wit.marshalmate.R
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
+import org.jetbrains.anko.toast
+import org.wit.marshalmate.activities.fragments.AddFragment
+import org.wit.marshalmate.activities.fragments.HomeFragment
 
-class HomeActivity : AppCompatActivity() {
-
-    private lateinit var appBarConfiguration: AppBarConfiguration
+class HomeActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener,AnkoLogger {
+    lateinit var toolbar: Toolbar
+    lateinit var drawerLayout: DrawerLayout
+    lateinit var navView: NavigationView
+    lateinit var addFragment:AddFragment
+    lateinit var homeFragment: HomeFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
+
+        toolbar = findViewById(R.id.toolbar)
+
         setSupportActionBar(toolbar)
-
-
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        val navView: NavigationView = findViewById(R.id.nav_view)
-        val navController = findNavController(R.id.nav_host_fragment)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
-                R.id.nav_tools, R.id.nav_share, R.id.nav_send
-            ), drawerLayout
+        drawerLayout = findViewById(R.id.drawer_layout)
+        navView = findViewById(R.id.nav_view)
+        val toggle = ActionBarDrawerToggle(
+            this, drawerLayout, toolbar, 0, 0
         )
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
-    }
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+        navView.setNavigationItemSelectedListener(this)
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.home, menu)
+        //welcom message code
+        /*
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user !=null){
+            //welcomeText.setText("Welcome ${user.email}")
+        }*/
+
+
+    homeFragment= HomeFragment()
+        supportFragmentManager.beginTransaction().replace(R.id.drawer_layout,homeFragment)
+
+
+    }
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.nav_home -> {
+                Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show()
+            }
+            R.id.nav_add -> {
+                info {"in add fragment"}
+                Toast.makeText(this, "Add Clicked", Toast.LENGTH_SHORT).show()
+                addFragment= AddFragment()
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.drawer_layout,addFragment)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .commit()
+            }
+
+            R.id.nav_logout -> {
+                Toast.makeText(this, "Logging Out", Toast.LENGTH_SHORT).show()
+                FirebaseAuth.getInstance().signOut()
+                val intent =Intent(this, LoginActivity::class.java)
+                this.startActivity(intent)
+                info{"logged out user"}
+                this.finishAffinity()
+
+            }
+            R.id.nav_search ->{
+                toast("pressed search")
+            }
+        }
+        drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment)
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    override fun onBackPressed() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer((GravityCompat.START))
+        }
+        else{
+        super.onBackPressed()
+        }
+
     }
 }

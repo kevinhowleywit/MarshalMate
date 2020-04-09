@@ -39,7 +39,7 @@ class RegisterActivity : AppCompatActivity() {
                 showProgress()
                 auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(){task ->
                     if(task.isSuccessful){
-                        val intent = Intent(this,NewHomeActivity::class.java)
+                        val intent = Intent(this,HomeActivity::class.java)
                         startActivity(intent)
                         hideProgress()
                     }
@@ -53,7 +53,7 @@ class RegisterActivity : AppCompatActivity() {
 
         }
     }
-
+/*
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(org.wit.marshalmate.R.menu.menu_main_activity, menu)
         return super.onCreateOptionsMenu(menu)
@@ -72,7 +72,7 @@ class RegisterActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
+*/
 
     fun showProgress() {
         regProgressBar.visibility = View.VISIBLE
