@@ -52,7 +52,7 @@ class HomeActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         }*/
 
 
-    homeFragment= HomeFragment()
+        homeFragment= HomeFragment()
         supportFragmentManager.beginTransaction().replace(R.id.drawer_layout,homeFragment)
 
 
@@ -95,7 +95,7 @@ class HomeActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             drawerLayout.closeDrawer((GravityCompat.START))
         }
         else{
-        super.onBackPressed()
+            super.onBackPressed()
         }
 
     }
