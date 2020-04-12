@@ -5,9 +5,7 @@ import com.google.android.material.navigation.NavigationView
 import androidx.drawerlayout.widget.DrawerLayout
 import android.view.Menu
 import androidx.appcompat.app.ActionBarDrawerToggle
-import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
-import org.jetbrains.anko.toast
+
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -17,6 +15,7 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.nav_header_main.*
+import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.wit.marshalmate.R
 import org.wit.marshalmate.activities.fragments.menu1
@@ -87,7 +86,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         }
         displaySelectedScreen(item.itemId)
-
 
         return true
     }
