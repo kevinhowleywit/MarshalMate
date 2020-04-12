@@ -21,6 +21,7 @@ import org.wit.marshalmate.R
 import org.wit.marshalmate.activities.fragments.HomeScreenFrag
 import org.wit.marshalmate.activities.fragments.AddFragment
 import org.wit.marshalmate.activities.fragments.SearchFragment
+import org.wit.marshalmate.activities.helpers.EventAdapter
 import org.wit.marshalmate.main.MainApp
 import org.wit.marshalmate.models.EventModel
 
@@ -126,11 +127,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     fun doAddToArrayList(event: EventModel) {
         app = application as MainApp
-        app!!.events.add(event.copy())
-        for (i in app!!.events.indices) {
-            info{"doAddToArrayList"}
-            info("Event[$i]:${app!!.events[i]}")
-        }
+        app!!.events.create(event.copy())
+        info { "event added $event" }
         //setResult(AppCompatActivity.RESULT_OK)
         //finish()
 
@@ -143,7 +141,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         info { "in cofig card view" }
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = EventAdapter(app!!.events)
+        recyclerView.adapter = EventAdapter(app!!.events.findAll())
 
     }
 
@@ -151,40 +149,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val layoutManager = LinearLayoutManager(this)
 
         recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = EventAdapter(app!!.events)
+        recyclerView.adapter = EventAdapter(app!!.events.findAll())
     }
 }
 
 
-class EventAdapter constructor(private var events: List<EventModel>) :
-    RecyclerView.Adapter<EventAdapter.MainHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
-        return MainHolder(
-            LayoutInflater.from(parent?.context).inflate(
-                R.layout.event_card,
-                parent,
-                false
-            )
-        )
-    }
-
-    override fun onBindViewHolder(holder: MainHolder, position: Int) {
-        val event = events[holder.adapterPosition]
-        holder.bind(event)
-    }
-
-    override fun getItemCount(): Int = events.size
-
-    class MainHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        fun bind(event: EventModel) {
-            itemView.cardEventName.text=event.eventName
-            itemView.cardEventDescription.text=event.description
-
-        }
-    }
-}
 
 
 
