@@ -1,28 +1,34 @@
 package org.wit.marshalmate.activities
 import android.content.Intent
 import android.os.Bundle
+import android.view.*
 import com.google.android.material.navigation.NavigationView
 import androidx.drawerlayout.widget.DrawerLayout
-import android.view.Menu
 import androidx.appcompat.app.ActionBarDrawerToggle
 
-import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.event_card.view.*
+import kotlinx.android.synthetic.main.fr_search.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.wit.marshalmate.R
 import org.wit.marshalmate.activities.fragments.HomeScreenFrag
 import org.wit.marshalmate.activities.fragments.AddFragment
 import org.wit.marshalmate.activities.fragments.SearchFragment
-
+import org.wit.marshalmate.main.MainApp
+import org.wit.marshalmate.models.EventModel
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,AnkoLogger {
+
+    var app:MainApp? =null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,6 +100,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         //creating fragment object
         var fragment: Fragment? = null
 
+
+
         //initializing the fragment object which is selected
         when (itemId) {
             R.id.menu_home -> fragment = HomeScreenFrag()
@@ -111,4 +119,91 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val drawer = findViewById<View>(R.id.drawer_layout) as DrawerLayout
         drawer.closeDrawer(GravityCompat.START)
     }
+     fun logTest()
+    {
+        info { "log test" }
+    }
+
+    fun doAddToArrayList(event: EventModel) {
+        app = application as MainApp
+        app!!.events.add(event.copy())
+        for (i in app!!.events.indices) {
+            info{"doAddToArrayList"}
+            info("Event[$i]:${app!!.events[i]}")
+        }
+        //setResult(AppCompatActivity.RESULT_OK)
+        //finish()
+
+
+    }
+
+
+    fun configureCardView(){
+        app = application as MainApp
+        info { "in cofig card view" }
+        val layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = layoutManager
+        recyclerView.adapter = EventAdapter(app!!.events)
+
+    }
+
+    fun updateCards(){
+        val layoutManager = LinearLayoutManager(this)
+
+        recyclerView.layoutManager = layoutManager
+        recyclerView.adapter = EventAdapter(app!!.events)
+    }
 }
+
+
+class EventAdapter constructor(private var events: List<EventModel>) :
+    RecyclerView.Adapter<EventAdapter.MainHolder>() {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
+        return MainHolder(
+            LayoutInflater.from(parent?.context).inflate(
+                R.layout.event_card,
+                parent,
+                false
+            )
+        )
+    }
+
+    override fun onBindViewHolder(holder: MainHolder, position: Int) {
+        val event = events[holder.adapterPosition]
+        holder.bind(event)
+    }
+
+    override fun getItemCount(): Int = events.size
+
+    class MainHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        fun bind(event: EventModel) {
+            itemView.cardEventName.text=event.eventName
+            itemView.cardEventDescription.text=event.description
+
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
