@@ -18,6 +18,7 @@ import org.wit.marshalmate.R
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.jetbrains.anko.toast
+
 import org.wit.marshalmate.activities.fragments.AddFragment
 import org.wit.marshalmate.activities.fragments.HomeFragment
 
@@ -52,8 +53,6 @@ class HomeActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         }*/
 
 
-        homeFragment= HomeFragment()
-        supportFragmentManager.beginTransaction().replace(R.id.drawer_layout,homeFragment)
 
 
     }
@@ -65,12 +64,7 @@ class HomeActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             R.id.nav_add -> {
                 info {"in add fragment"}
                 Toast.makeText(this, "Add Clicked", Toast.LENGTH_SHORT).show()
-                addFragment= AddFragment()
-                supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.drawer_layout,addFragment)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                    .commit()
+
             }
 
             R.id.nav_logout -> {
