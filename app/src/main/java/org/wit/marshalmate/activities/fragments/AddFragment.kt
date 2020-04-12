@@ -4,10 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.fr_add.*
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 import org.wit.marshalmate.R
+import org.wit.marshalmate.models.EventModel
 
-class AddFragment : Fragment() {
+class AddFragment : Fragment(),AnkoLogger {
+
+    var event=EventModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         //returning our layout file
@@ -20,5 +28,22 @@ class AddFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         //you can set the title for your toolbar here for different fragments different titles
         activity!!.title = "Add"
+
+        addEventButton.setOnClickListener{
+            event.eventName=eventNameText.text.toString()
+            event.description=eventDescription.text.toString()
+            //gets the logged in user from firebase and sets the creator to that email
+            val user = FirebaseAuth.getInstance().currentUser
+            event.creator=user?.email.toString()
+
+            if (event.eventName.isNotEmpty() && event.description.isNotEmpty()){
+                info("add pressed $event: ")
+            }
+            else{
+                Toast.makeText(context,"Please fill out all fields",Toast.LENGTH_SHORT).show()
+            }
+        }
+
+
     }
 }
