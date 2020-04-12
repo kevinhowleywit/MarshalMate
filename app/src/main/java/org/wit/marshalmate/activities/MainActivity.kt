@@ -9,18 +9,16 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.nav_header_main.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.wit.marshalmate.R
-import org.wit.marshalmate.activities.fragments.menu1
-import org.wit.marshalmate.activities.fragments.menu2
-import org.wit.marshalmate.activities.fragments.menu3
+import org.wit.marshalmate.activities.fragments.HomeScreenFrag
+import org.wit.marshalmate.activities.fragments.AddFragment
+import org.wit.marshalmate.activities.fragments.SearchFragment
 
 
 
@@ -42,7 +40,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val navigationView = findViewById<View>(R.id.nav_view) as NavigationView
         navigationView.setNavigationItemSelectedListener(this)
 
-        displaySelectedScreen(R.id.nav_menu1)
+        displaySelectedScreen(R.id.menu_home)
 
     }
 
@@ -98,9 +96,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         //initializing the fragment object which is selected
         when (itemId) {
-            R.id.nav_menu1 -> fragment = menu1()
-            R.id.nav_menu2 -> fragment = menu2()
-            R.id.nav_menu3 -> fragment = menu3()
+            R.id.menu_home -> fragment = HomeScreenFrag()
+            R.id.menu_add -> fragment = AddFragment()
+            R.id.menu_search -> fragment = SearchFragment()
         }
 
         //replacing the fragment
