@@ -11,9 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.event_card.view.*
 import kotlinx.android.synthetic.main.fr_search.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -22,11 +20,12 @@ import org.wit.marshalmate.activities.fragments.HomeScreenFrag
 import org.wit.marshalmate.activities.fragments.AddFragment
 import org.wit.marshalmate.activities.fragments.SearchFragment
 import org.wit.marshalmate.activities.helpers.EventAdapter
+import org.wit.marshalmate.activities.helpers.EventListener
 import org.wit.marshalmate.main.MainApp
 import org.wit.marshalmate.models.EventModel
 
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,AnkoLogger {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,AnkoLogger,EventListener {
 
     var app:MainApp? =null
 
@@ -101,8 +100,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         //creating fragment object
         var fragment: Fragment? = null
 
-
-
         //initializing the fragment object which is selected
         when (itemId) {
             R.id.menu_home -> fragment = HomeScreenFrag()
@@ -141,16 +138,25 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         info { "in cofig card view" }
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = EventAdapter(app!!.events.findAll())
+        recyclerView.adapter = EventAdapter(app!!.events.findAll(),this)
 
     }
 
     fun updateCards(){
+        info { "in  update cards" }
         val layoutManager = LinearLayoutManager(this)
 
         recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = EventAdapter(app!!.events.findAll())
+        recyclerView.adapter = EventAdapter(app!!.events.findAll(),this)
     }
+
+   override fun onEventClick(event: EventModel) {
+        //val intent = Intent(this, EditEventActivity::class.java)
+        //startActivity(intent)
+
+    }
+
+
 }
 
 

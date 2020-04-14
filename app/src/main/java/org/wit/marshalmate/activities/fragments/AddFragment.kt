@@ -5,10 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fr_add.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -38,7 +36,7 @@ class AddFragment : Fragment(),AnkoLogger {
 
 
 
-        addEventButton.setOnClickListener{
+        saveChangesButton.setOnClickListener{
             //testing communication between fragment and activity
             (activity as MainActivity?)?.logTest()
 

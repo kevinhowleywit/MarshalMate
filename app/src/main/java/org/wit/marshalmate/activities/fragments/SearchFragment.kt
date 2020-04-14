@@ -18,6 +18,7 @@ class SearchFragment : Fragment() {
         //returning our layout file
         //change R.layout.yourlayoutfilename for each of your fragments
         return inflater.inflate(R.layout.fr_search, container, false)
+        updateCardView()
 
     }
 
@@ -27,6 +28,8 @@ class SearchFragment : Fragment() {
         activity!!.title = "Search"
 
        (activity as MainActivity?)?.configureCardView()
+        updateCardView()
+
 
 
 

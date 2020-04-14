@@ -35,6 +35,9 @@ android {
         jvmTarget = "1.8"
     }
 }
+androidExtensions {
+    experimental = true
+}
 
 dependencies {
     def room_version = "2.2.3"
