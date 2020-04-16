@@ -28,6 +28,10 @@ class EventMemStore :EventStore,AnkoLogger{
         if(foundEvent !=null){
             foundEvent.eventName=event.eventName
             foundEvent.description=event.description
+            foundEvent.location.lat=event.location.lat
+            foundEvent.location.lng=event.location.lng
+            foundEvent.location.zoom=event.location.zoom
+
             logAllEvents()
         }
     }

@@ -36,6 +36,13 @@ class AddFragment : Fragment(),AnkoLogger {
 
 
 
+        addPointsBtn.setOnClickListener{
+            info { "pressed add points" }
+            //easier to handle the button press in the parent activity
+            (activity as MainActivity).addPointsBtnHandler(event)
+        }
+
+
         saveChangesButton.setOnClickListener{
             //testing communication between fragment and activity
             (activity as MainActivity?)?.logTest()
@@ -48,14 +55,19 @@ class AddFragment : Fragment(),AnkoLogger {
             event.creator=user?.email.toString()
             if (event.eventName.isNotEmpty() && event.description.isNotEmpty()){
                 info { "add pressed: $event"}
-                (activity as MainActivity).doAddToArrayList(event)
-                }
+                (activity as MainActivity).handleAddingEvents(event)
+            }
             else{
                 Toast.makeText(context,"Please fill out all fields",Toast.LENGTH_SHORT).show()
             }
         }
 
+
     }
+    fun test(){
+
+    }
+
 
 
 }

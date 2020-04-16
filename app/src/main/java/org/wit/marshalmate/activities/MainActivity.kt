@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fr_search.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
+import org.jetbrains.anko.intentFor
 import org.wit.marshalmate.R
 import org.wit.marshalmate.activities.fragments.HomeScreenFrag
 import org.wit.marshalmate.activities.fragments.AddFragment
@@ -23,12 +24,15 @@ import org.wit.marshalmate.activities.helpers.EventAdapter
 import org.wit.marshalmate.activities.helpers.EventListener
 import org.wit.marshalmate.main.MainApp
 import org.wit.marshalmate.models.EventModel
+import org.wit.marshalmate.models.Location
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,AnkoLogger,EventListener {
 
-    var app:MainApp? =null
-
+    var app: MainApp? = null
+    val LOCATION_REQUEST=2
+    var event=EventModel()
+    //
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +43,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val drawer = findViewById<View>(R.id.drawer_layout) as DrawerLayout
         val toggle = ActionBarDrawerToggle(
-            this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+            this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+        )
         drawer.addDrawerListener(toggle)
         toggle.syncState()
 
@@ -85,7 +90,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 FirebaseAuth.getInstance().signOut()
                 val intent = Intent(this, LoginActivity::class.java)
                 this.startActivity(intent)
-                info{"logged out user"}
+                info { "logged out user" }
                 this.finishAffinity()
             }
         }
@@ -117,46 +122,80 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val drawer = findViewById<View>(R.id.drawer_layout) as DrawerLayout
         drawer.closeDrawer(GravityCompat.START)
     }
-     fun logTest()
-    {
+
+    fun logTest() {
         info { "log test" }
     }
 
-    fun doAddToArrayList(event: EventModel) {
-        app = application as MainApp
-        app!!.events.create(event.copy())
-        info { "event added $event" }
-        //setResult(AppCompatActivity.RESULT_OK)
-        //finish()
 
 
-    }
 
-
-    fun configureCardView(){
+    fun configureCardView() {
         app = application as MainApp
         info { "in cofig card view" }
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = EventAdapter(app!!.events.findAll(),this)
+        recyclerView.adapter = EventAdapter(app!!.events.findAll(), this)
 
     }
 
-    fun updateCards(){
+    fun updateCards() {
         info { "in  update cards" }
         val layoutManager = LinearLayoutManager(this)
 
         recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = EventAdapter(app!!.events.findAll(),this)
+        recyclerView.adapter = EventAdapter(app!!.events.findAll(), this)
     }
 
-   override fun onEventClick(event: EventModel) {
+    override fun onEventClick(event: EventModel) {
         //val intent = Intent(this, EditEventActivity::class.java)
         //startActivity(intent)
 
     }
 
+    fun addPointsBtnHandler(event: EventModel) {
+        //val location=Location(52.347831, -7.18659, 15f)
+        info { "in add points handler" }
+        val location = Location(52.245696, -7.139102, 15f)
+        if (event.location.zoom != 0f) {
+            location.lat =  event.location.lat
+            location.lng = event.location.lng
+            location.zoom = event.location.zoom
+        }
 
+        startActivity (intentFor<MapsActivity>().putExtra("location", LOCATION_REQUEST))
+    }
+    fun handleAddingEvents(event: EventModel) {
+        app = application as MainApp
+        //app!!.events.create(event.copy())
+        info { "event added $event" }
+        app!!.saveEvent(event)
+
+
+        //setResult(AppCompatActivity.RESULT_OK)
+        //finish()
+    }
+
+
+
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            LOCATION_REQUEST -> {
+                if (data != null) {
+                    val location = data.extras?.getParcelable<Location>("location")!!
+                    event.location.lat=location.lat
+                    event.location.lng=location.lng
+                    event.location.zoom=location.zoom
+
+
+
+                }
+            }
+        }
+    }
 }
 
 

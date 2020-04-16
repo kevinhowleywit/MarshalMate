@@ -14,7 +14,7 @@ data class EventModel(@PrimaryKey(autoGenerate = true)
                       var creator:String="",
                       var eventName:String="",
                       var description:String="",
-                      var image:String="",
+                      //var image:String="",
                       @Embedded var location : Location = Location()): Parcelable
 
 
