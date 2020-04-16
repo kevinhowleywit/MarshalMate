@@ -11,7 +11,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.fr_add.*
 import kotlinx.android.synthetic.main.fr_search.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -26,7 +33,6 @@ import org.wit.marshalmate.main.MainApp
 import org.wit.marshalmate.models.EventModel
 import org.wit.marshalmate.models.Location
 
-
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,AnkoLogger,EventListener {
 
     var app: MainApp? = null
@@ -39,19 +45,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_main)
         val toolbar = findViewById<View>(R.id.toolbar) as androidx.appcompat.widget.Toolbar
         setSupportActionBar(toolbar)
-
-
         val drawer = findViewById<View>(R.id.drawer_layout) as DrawerLayout
         val toggle = ActionBarDrawerToggle(
             this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
         )
         drawer.addDrawerListener(toggle)
         toggle.syncState()
-
         val navigationView = findViewById<View>(R.id.nav_view) as NavigationView
         navigationView.setNavigationItemSelectedListener(this)
-
         displaySelectedScreen(R.id.menu_home)
+
+
+
 
     }
 
@@ -176,6 +181,45 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         //finish()
     }
 
+    fun configMap(){
+
+        info { "in config map" }
+
+    }
+    /*
+    override fun onMarkerDragStart(marker: Marker) {
+    }
+    override fun onMarkerDrag(marker: Marker) {
+    }
+    override fun onMarkerDragEnd(marker: Marker) {
+    }
+    override fun onMarkerClick(marker: Marker): Boolean{
+        return false
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        mapView.onDestroy()
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        mapView.onLowMemory()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mapView.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mapView.onResume()
+    }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        mapView.onSaveInstanceState(outState)
+    }*/
+
 
 
 
@@ -196,6 +240,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         }
     }
+
+
 }
 
 
