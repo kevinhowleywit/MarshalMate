@@ -6,7 +6,8 @@ import android.view.*
 import com.google.android.material.navigation.NavigationView
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.ActionBarDrawerToggle
-
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationResult
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -67,14 +68,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
     }
-     fun setUpMap() {
-         info{"In set up map"}
+    fun setUpMap() {
+        info{"In set up map"}
         if (ActivityCompat.checkSelfPermission(this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
                 arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
             return
         }
+
     }
 
     override fun onBackPressed() {
@@ -109,6 +111,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_logout -> {
+                //supportFragmentManager.popBackStack()
                 Toast.makeText(this, "Logging Out", Toast.LENGTH_SHORT).show()
                 FirebaseAuth.getInstance().signOut()
                 val intent = Intent(this, LoginActivity::class.java)

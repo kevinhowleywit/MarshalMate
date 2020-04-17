@@ -45,8 +45,6 @@ class AddFragment : Fragment(),AnkoLogger,OnMapReadyCallback,GoogleMap.OnMarkerD
     }
     //map config
     override fun onMapReady(map: GoogleMap?) {
-
-
     }
 
     override fun onMarkerDragStart(marker: Marker) {
@@ -95,13 +93,16 @@ class AddFragment : Fragment(),AnkoLogger,OnMapReadyCallback,GoogleMap.OnMarkerD
             val loc= LatLng(52.347831,-7.18659)
             val options=MarkerOptions().title("Starting").snippet("TEstingSnippet " +loc.toString()).draggable(true).position(loc)
             googleMap.addMarker(options)
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc,15f))
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc,13f))
         }
         addPointBtn.setOnClickListener{
             var pointName=pointNameText.text.toString()
             if (pointName.isNotEmpty()){
                 info{"Point Name $pointName"}
-
+                val loc= LatLng(52.347831,-7.26555)
+                val options=MarkerOptions().title("added").snippet("Test2 " +loc.toString()).draggable(true).position(loc)
+                googleMap.addMarker(options)
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc,13f))
 
 
             }
