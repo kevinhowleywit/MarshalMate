@@ -1,5 +1,6 @@
 package org.wit.marshalmate.activities
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.*
 import com.google.android.material.navigation.NavigationView
@@ -8,9 +9,12 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -35,10 +39,16 @@ import org.wit.marshalmate.models.Location
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,AnkoLogger,EventListener {
 
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
     var app: MainApp? = null
     val LOCATION_REQUEST=2
     var event=EventModel()
     //
+    companion object {
+        private const val LOCATION_PERMISSION_REQUEST_CODE = 1
+    }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,10 +64,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val navigationView = findViewById<View>(R.id.nav_view) as NavigationView
         navigationView.setNavigationItemSelectedListener(this)
         displaySelectedScreen(R.id.menu_home)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
-
-
-
+    }
+     fun setUpMap() {
+         info{"In set up map"}
+        if (ActivityCompat.checkSelfPermission(this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
+            return
+        }
     }
 
     override fun onBackPressed() {
@@ -88,6 +105,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     }
 
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_logout -> {
@@ -103,13 +121,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         return true
     }
-
-
     private fun displaySelectedScreen(itemId: Int) {
-
         //creating fragment object
         var fragment: Fragment? = null
-
         //initializing the fragment object which is selected
         when (itemId) {
             R.id.menu_home -> fragment = HomeScreenFrag()
@@ -160,15 +174,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     fun addPointsBtnHandler(event: EventModel) {
         //val location=Location(52.347831, -7.18659, 15f)
-        info { "in add points handler" }
-        val location = Location(52.245696, -7.139102, 15f)
-        if (event.location.zoom != 0f) {
-            location.lat =  event.location.lat
-            location.lng = event.location.lng
-            location.zoom = event.location.zoom
-        }
 
-        startActivity (intentFor<MapsActivity>().putExtra("location", LOCATION_REQUEST))
     }
     fun handleAddingEvents(event: EventModel) {
         app = application as MainApp
@@ -181,40 +187,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         //finish()
     }
 
-    fun configMap(){
 
-        info { "in config map" }
-
-    }
     /*
-    override fun onMarkerDragStart(marker: Marker) {
-    }
-    override fun onMarkerDrag(marker: Marker) {
-    }
-    override fun onMarkerDragEnd(marker: Marker) {
-    }
-    override fun onMarkerClick(marker: Marker): Boolean{
-        return false
-    }
-    override fun onDestroy() {
-        super.onDestroy()
-        mapView.onDestroy()
-    }
 
-    override fun onLowMemory() {
-        super.onLowMemory()
-        mapView.onLowMemory()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        mapView.onPause()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        mapView.onResume()
-    }
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         mapView.onSaveInstanceState(outState)
@@ -226,19 +201,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
-            LOCATION_REQUEST -> {
-                if (data != null) {
-                    val location = data.extras?.getParcelable<Location>("location")!!
-                    event.location.lat=location.lat
-                    event.location.lng=location.lng
-                    event.location.zoom=location.zoom
 
-
-
-                }
-            }
-        }
     }
 
 
