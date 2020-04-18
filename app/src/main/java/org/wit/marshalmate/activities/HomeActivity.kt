@@ -20,7 +20,7 @@ import org.jetbrains.anko.info
 import org.jetbrains.anko.toast
 import org.wit.marshalmate.activities.fragments.AddFragment
 import org.wit.marshalmate.activities.fragments.HomeFragment
-
+//Author Kevin Howley
 class HomeActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener,AnkoLogger {
     lateinit var toolbar: Toolbar
     lateinit var drawerLayout: DrawerLayout
