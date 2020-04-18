@@ -58,6 +58,7 @@ class AddFragment : Fragment(),AnkoLogger,OnMapReadyCallback,GoogleMap.OnMarkerD
     override fun onMarkerDrag(marker: Marker) {
     }
     override fun onMarkerDragEnd(marker: Marker) {
+        //sets the list 
         location.lat = marker.position.latitude
         location.lng = marker.position.longitude
         listOfPoints.add(location.copy())

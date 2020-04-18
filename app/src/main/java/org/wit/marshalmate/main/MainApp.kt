@@ -15,7 +15,6 @@ class MainApp : Application(), AnkoLogger {
 
     override fun onCreate() {
         super.onCreate()
-        //events =EventMemStore()
         info("app is running")
 
     }
