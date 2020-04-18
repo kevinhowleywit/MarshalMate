@@ -36,22 +36,20 @@ import org.wit.marshalmate.activities.helpers.EventAdapter
 import org.wit.marshalmate.activities.helpers.EventListener
 import org.wit.marshalmate.main.MainApp
 import org.wit.marshalmate.models.EventModel
+import org.wit.marshalmate.models.Person
 import org.wit.marshalmate.models.PointProperties
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,AnkoLogger,EventListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,AnkoLogger {
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     var app: MainApp? = null
     val LOCATION_REQUEST=2
-    var event=EventModel()
-    //
-
-
-
+    var person=Person()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         val toolbar = findViewById<View>(R.id.toolbar) as androidx.appcompat.widget.Toolbar
         setSupportActionBar(toolbar)
         val drawer = findViewById<View>(R.id.drawer_layout) as DrawerLayout
@@ -64,6 +62,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navigationView.setNavigationItemSelectedListener(this)
         displaySelectedScreen(R.id.menu_home)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+
 
     }
 
@@ -95,7 +95,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         } else super.onOptionsItemSelected(item)
 
     }
-
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -134,40 +133,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawer.closeDrawer(GravityCompat.START)
     }
 
-    fun logTest() {
-        info { "log test" }
-    }
-
-
-
-
-    fun configureCardView() {
-        app = application as MainApp
-        info { "in cofig card view" }
-        val layoutManager = LinearLayoutManager(this)
-        recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = EventAdapter(app!!.events.findAll(), this)
-
-    }
-
-    fun updateCards() {
-        info { "in  update cards" }
-        val layoutManager = LinearLayoutManager(this)
-
-        recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = EventAdapter(app!!.events.findAll(), this)
-    }
-
-    override fun onEventClick(event: EventModel) {
-        //val intent = Intent(this, EditEventActivity::class.java)
-        //startActivity(intent)
-
-    }
-
-    fun addPointsBtnHandler(event: EventModel) {
-        //val location=Location(52.347831, -7.18659, 15f)
-
-    }
     fun handleAddingEvents(event: EventModel) {
         app = application as MainApp
         //app!!.events.create(event.copy())
@@ -178,18 +143,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         //setResult(AppCompatActivity.RESULT_OK)
         //finish()
     }
-
-
-    /*
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        mapView.onSaveInstanceState(outState)
-    }*/
-
-
-
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

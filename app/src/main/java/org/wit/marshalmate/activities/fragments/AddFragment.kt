@@ -36,12 +36,11 @@ class AddFragment : Fragment(),AnkoLogger,OnMapReadyCallback,GoogleMap.OnMarkerD
 
     //variables for the class
     var formate = SimpleDateFormat("dd MMM, YYYY",Locale.UK)
-
     private lateinit var lastLocation: Location
     var listOfPoints=ArrayList<PointProperties>()
     var event =EventModel()
     private lateinit var googleMap:GoogleMap
-    var location=PointProperties(15.2,9.4,13f,"")
+    var location=PointProperties()
 
 
 
@@ -61,8 +60,8 @@ class AddFragment : Fragment(),AnkoLogger,OnMapReadyCallback,GoogleMap.OnMarkerD
     override fun onMarkerDragEnd(marker: Marker) {
         location.lat = marker.position.latitude
         location.lng = marker.position.longitude
-        location.zoom = googleMap.cameraPosition.zoom
-        info { "current marker location$location" }
+        listOfPoints.add(location.copy())
+
     }
     override fun onMarkerClick(marker: Marker): Boolean{
         val loc = LatLng(location.lat, location.lng)
@@ -91,22 +90,19 @@ class AddFragment : Fragment(),AnkoLogger,OnMapReadyCallback,GoogleMap.OnMarkerD
         super.onViewCreated(view, savedInstanceState)
         //you can set the title for your toolbar here for different fragments different titles
         activity!!.title = "Add Event"
+        //configuring map
         mapView.onCreate(savedInstanceState)
-
         mapView.getMapAsync{
             googleMap=it
             googleMap.uiSettings.setZoomControlsEnabled(true)
             googleMap.setOnMarkerDragListener(this)
             googleMap.setOnMarkerClickListener(this)
-            val loc= LatLng(52.347831,-7.18659)
+            val loc= LatLng(52.2474998,-7.1480493)
             val options=MarkerOptions().title("Starting").snippet("TestingSnippet " +loc.toString()).draggable(true).position(loc)
-            googleMap.addMarker(options)
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc,13f))
         }
-
         //creates date pop up and adds date
         chooseDateBtn.setOnClickListener{
-            var datestring=""
             val c =Calendar.getInstance()
             val year=c.get(Calendar.YEAR)
             val month=c.get(Calendar.MONTH)
@@ -117,39 +113,33 @@ class AddFragment : Fragment(),AnkoLogger,OnMapReadyCallback,GoogleMap.OnMarkerD
                 event.year=mYear
             },year,month,day)
             datePicker.show()
-
-
         }
-
+        //handles the button to add a point to the map
         addPointBtn.setOnClickListener{
             var pointName=pointNameText.text.toString()
-
             if (pointName.isNotEmpty()){
                 info{"Point Name $pointName"}
-                val loc= LatLng(52.347831,-7.26555)
+                val loc= LatLng(52.2474998,-7.1480493)
                 val options=MarkerOptions().title(pointName ).snippet("Test2 " +loc.toString()).draggable(true).position(loc)
                 googleMap.addMarker(options)
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc,13f))
+                pointNameText.setText("")
             }
             else{
                 Toast.makeText(context,"Please enter the point title",Toast.LENGTH_SHORT).show()
-
             }
-           // if (numOfPointsEditText.)
         }
+        //saves the event
         saveChangesButton.setOnClickListener{
-            //testing communication between fragment and activity
-            (activity as MainActivity?)?.logTest()
             event.eventName=eventNameText.text.toString()
             event.description=eventDescription.text.toString()
+            event.points=listOfPoints
             //gets the logged in user from firebase and sets the creator to that email
             val user = FirebaseAuth.getInstance().currentUser
             event.creator=user?.email.toString()
             if (event.eventName.isNotEmpty() && event.description.isNotEmpty()){
                 info { "add pressed: $event"}
-                for(i in listOfPoints.indices){
-                    info { "TestLocation....${listOfPoints[i]}" }
-                }
+                //passes the event to the main activity where it is saved
                 (activity as MainActivity).handleAddingEvents(event)
             }
             else{

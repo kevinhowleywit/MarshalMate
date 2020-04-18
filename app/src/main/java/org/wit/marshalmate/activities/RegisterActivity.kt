@@ -11,10 +11,14 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_register.*
 import org.jetbrains.anko.toast
 import org.wit.marshalmate.R
+import org.wit.marshalmate.main.MainApp
+import org.wit.marshalmate.models.Person
 
 
 class RegisterActivity : AppCompatActivity() {
     var auth: FirebaseAuth =FirebaseAuth.getInstance()
+    var app: MainApp? = null
+    var person= Person()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,8 +42,13 @@ class RegisterActivity : AppCompatActivity() {
             }
             else{
                 showProgress()
+                app = application as MainApp
+
+                person.mail=email
+                app?.addUserToDB(person)
                 auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(){task ->
                     if(task.isSuccessful){
+
                         val intent = Intent(this,MainActivity::class.java)
                         startActivity(intent)
                         hideProgress()

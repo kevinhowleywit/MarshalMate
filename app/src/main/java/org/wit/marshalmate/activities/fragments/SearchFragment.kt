@@ -18,17 +18,14 @@ class SearchFragment : Fragment() {
         //returning our layout file
         //change R.layout.yourlayoutfilename for each of your fragments
         return inflater.inflate(R.layout.fr_search, container, false)
-        updateCardView()
+
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //you can set the title for your toolbar here for different fragments different titles
-        activity!!.title = "Search"
 
-       (activity as MainActivity?)?.configureCardView()
-        updateCardView()
 
 
 
@@ -37,9 +34,6 @@ class SearchFragment : Fragment() {
 
 
     }
-    private fun updateCardView() {
-        //go to main activity and fill in added cards
-        (activity as MainActivity?)?.updateCards()
 
-    }
+
 }

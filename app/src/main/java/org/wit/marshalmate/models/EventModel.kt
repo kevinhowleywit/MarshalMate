@@ -8,6 +8,7 @@ import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.google.android.gms.maps.model.Marker
 import java.text.DateFormat
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -38,6 +39,9 @@ data class PointProperties  (   var lat: Double = 0.0,
                                 var lng: Double = 0.0,
                                 var zoom: Float = 0f,
                                 var assignedUser:String=""): Parcelable
+@Parcelize
+data class Person(var fbId : String = "",
+                  var mail:String=""):Parcelable
 
 
 
