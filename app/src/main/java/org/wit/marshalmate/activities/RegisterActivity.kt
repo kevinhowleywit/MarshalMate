@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_register.*
 import org.jetbrains.anko.toast
 import org.wit.marshalmate.R
 
+
 class RegisterActivity : AppCompatActivity() {
     var auth: FirebaseAuth =FirebaseAuth.getInstance()
 

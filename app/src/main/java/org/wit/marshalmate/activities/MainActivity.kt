@@ -36,7 +36,7 @@ import org.wit.marshalmate.activities.helpers.EventAdapter
 import org.wit.marshalmate.activities.helpers.EventListener
 import org.wit.marshalmate.main.MainApp
 import org.wit.marshalmate.models.EventModel
-import org.wit.marshalmate.models.Location
+import org.wit.marshalmate.models.PointProperties
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,AnkoLogger,EventListener {
 
@@ -45,9 +45,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     val LOCATION_REQUEST=2
     var event=EventModel()
     //
-    companion object {
-        private const val LOCATION_PERMISSION_REQUEST_CODE = 1
-    }
+
 
 
 
@@ -68,16 +66,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
     }
-    fun setUpMap() {
-        info{"In set up map"}
-        if (ActivityCompat.checkSelfPermission(this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
-            return
-        }
 
-    }
 
     override fun onBackPressed() {
         val drawer = findViewById<View>(R.id.drawer_layout) as DrawerLayout

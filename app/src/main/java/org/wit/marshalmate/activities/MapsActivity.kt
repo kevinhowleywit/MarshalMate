@@ -13,12 +13,12 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import org.wit.marshalmate.R
-import org.wit.marshalmate.models.Location
+import org.wit.marshalmate.models.PointProperties
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback,GoogleMap.OnMarkerDragListener,GoogleMap.OnMarkerClickListener {
 
     private lateinit var map: GoogleMap
-    var location= Location()
+    var location= PointProperties()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
