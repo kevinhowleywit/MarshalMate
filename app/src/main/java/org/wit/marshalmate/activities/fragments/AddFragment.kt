@@ -29,8 +29,9 @@ class AddFragment : Fragment(),AnkoLogger,OnMapReadyCallback,GoogleMap.OnMarkerD
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }
-    var event=EventModel()
+
     var listOfPoints=ArrayList<Location>()
+    var event =EventModel(0,"emptyId","empty","empty","empty",listOfPoints)
     private lateinit var googleMap:GoogleMap
     var location=Location(15.2,9.4,5f,"kevin howley")
 

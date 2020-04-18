@@ -7,7 +7,7 @@ import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.google.android.gms.maps.model.Marker
-
+var listOfPoints=ArrayList<Location>()
 
 @Parcelize
 @Entity
@@ -16,11 +16,10 @@ data class EventModel(@PrimaryKey(autoGenerate = true)
                       var fbId : String = "",
                       var creator:String="",
                       var eventName:String="",
-                      var description:String=""
+                      var description:String="",
                       //var image:String="",
-                      //@Embedded var points : MutableList<Location>
-): Parcelable {
-}
+                      @Embedded var points : ArrayList<Location>): Parcelable{constructor():this(0,"emptyId","empty","empty","empty",listOfPoints)}
+
 
 @Parcelize
 data class Location(var lat: Double = 0.0,
