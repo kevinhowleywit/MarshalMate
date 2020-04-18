@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1017759186816",
+    "firebase_url": "https://final-year-project-6ff0b.firebaseio.com",
+    "project_id": "final-year-project-6ff0b",
+    "storage_bucket": "final-year-project-6ff0b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1017759186816:android:fd9cbb4d0eb184c0480b65",
+        "android_client_info": {
+          "package_name": "org.wit.marshalmate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1017759186816-q4ff21ovmqpl2i0kdv9gi57a3omn85gj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.wit.marshalmate",
+            "certificate_hash": "c45f6bbbe309fb1993b42fc70d2abad4491dcbc8"
+          }
+        },
+        {
+          "client_id": "1017759186816-q4ghmrsvn7ciccjduplstlairbovd8ci.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5G5IHMC54qsK9oGOPuuf7SfpW4gIV-Dc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1017759186816-q4ghmrsvn7ciccjduplstlairbovd8ci.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

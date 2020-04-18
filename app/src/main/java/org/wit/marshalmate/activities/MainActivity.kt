@@ -1,7 +1,8 @@
-package org.wit.marshalmate
+package org.wit.marshalmate.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import org.wit.marshalmate.R
 
 class MainActivity : AppCompatActivity() {
 
