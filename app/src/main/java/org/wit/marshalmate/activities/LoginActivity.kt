@@ -32,8 +32,8 @@ class LoginActivity : AppCompatActivity() {
 
 
         loginBtn.setOnClickListener {
-            regEmail.setText("test@test.com")
-            regPassword.setText("Memes1234")
+            //regEmail.setText("test@test.com")
+            //regPassword.setText("Memes1234")
             val email=regEmail.text.toString()
             val pw= regPassword.text.toString()
 

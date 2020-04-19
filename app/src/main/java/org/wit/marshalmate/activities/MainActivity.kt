@@ -16,12 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
+
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fr_add.*
 import kotlinx.android.synthetic.main.fr_search.*
@@ -31,9 +26,9 @@ import org.jetbrains.anko.intentFor
 import org.wit.marshalmate.R
 import org.wit.marshalmate.activities.fragments.HomeScreenFrag
 import org.wit.marshalmate.activities.fragments.AddFragment
+import org.wit.marshalmate.activities.fragments.AllUsersFragment
 import org.wit.marshalmate.activities.fragments.SearchFragment
-import org.wit.marshalmate.activities.helpers.EventAdapter
-import org.wit.marshalmate.activities.helpers.EventListener
+
 import org.wit.marshalmate.main.MainApp
 import org.wit.marshalmate.models.EventModel
 import org.wit.marshalmate.models.Person
@@ -62,6 +57,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navigationView.setNavigationItemSelectedListener(this)
         displaySelectedScreen(R.id.menu_home)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+        app =application as MainApp
+        app!!.fetchAllEvents()
+        app!!.fetchAllUsers()
+
+
+
 
 
 
@@ -120,6 +122,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.menu_home -> fragment = HomeScreenFrag()
             R.id.menu_add -> fragment = AddFragment()
             R.id.menu_search -> fragment = SearchFragment()
+            R.id.menu_all_users ->fragment=AllUsersFragment()
         }
 
         //replacing the fragment

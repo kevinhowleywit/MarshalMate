@@ -5,11 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.event_card.view.*
+import org.wit.marshalmate.main.MainApp
 import org.wit.marshalmate.models.EventModel
 
 interface EventListener {
     fun onEventClick(event: EventModel)
 }
+var app: MainApp? = null
+var events=ArrayList<EventModel>()
 
 class EventAdapter constructor(private var events: List<EventModel>,private val listener: EventListener) :
     RecyclerView.Adapter<EventAdapter.MainHolder>() {

@@ -14,33 +14,18 @@
             android:id="@+id/cardImageView"
             android:layout_width="75dp"
             android:layout_height="75dp"
-            android:src="@drawable/ic_event_black_24dp"/>
+            android:src="@drawable/ic_person_outline_black_24dp"/>
 
         <TextView
-            android:id="@+id/cardEventName"
+            android:id="@+id/cardUserEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="22sp"
-            android:text="Event Name"
+            android:gravity="center"
+            android:text="User Email"
             android:layout_toRightOf="@id/cardImageView"/>
 
-        <TextView
-            android:id="@+id/cardEventDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="22sp"
-            android:text="Description"
-            android:layout_toRightOf="@id/cardImageView"
-            android:layout_toEndOf="@id/cardImageView"
-            android:layout_below="@id/cardEventName"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/cardEventDate"
-            android:textSize="22sp"
-            android:layout_alignParentEnd="true"
-            android:text="Date"/>
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
