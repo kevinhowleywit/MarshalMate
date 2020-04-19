@@ -42,7 +42,9 @@ class SearchFragment : Fragment() ,AnkoLogger,EventListener{
     }
 
     override fun onEventClick(event: EventModel) {
-        Toast.makeText(context,"Event clicked $event", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(context,"Event clicked $event", Toast.LENGTH_SHORT).show()
+
+        
     }
 
 
