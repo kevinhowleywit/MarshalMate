@@ -15,6 +15,7 @@ interface EventListener{
     fun onEventClick(event: EventModel)
 }
 
+
 class EventAdapter constructor(private var events: ArrayList<EventModel>,private val listener: EventListener) :
     RecyclerView.Adapter<EventAdapter.MainHolder>() {
 
@@ -47,23 +48,6 @@ class EventAdapter constructor(private var events: ArrayList<EventModel>,private
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /*

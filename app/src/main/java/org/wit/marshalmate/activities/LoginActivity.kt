@@ -29,11 +29,12 @@ class LoginActivity : AppCompatActivity() {
         actionBar?.hide()
         hideProgress()
         var auth: FirebaseAuth =FirebaseAuth.getInstance()
+        regEmail.setText("test@test.com")
+        regPassword.setText("Memes1234")
 
 
         loginBtn.setOnClickListener {
-            regEmail.setText("test@test.com")
-            regPassword.setText("Memes1234")
+
             val email=regEmail.text.toString()
             val pw= regPassword.text.toString()
 

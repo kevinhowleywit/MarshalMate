@@ -22,8 +22,6 @@ class SearchFragment : Fragment() ,AnkoLogger,EventListener{
     private var events=ArrayList<EventModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        //returning our layout file
-        //change R.layout.yourlayoutfilename for each of your fragments
         return inflater.inflate(R.layout.fr_search, container, false)
 
 
@@ -42,9 +40,8 @@ class SearchFragment : Fragment() ,AnkoLogger,EventListener{
     }
 
     override fun onEventClick(event: EventModel) {
-        //Toast.makeText(context,"Event clicked $event", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context,"${event.eventName}", Toast.LENGTH_SHORT).show()
 
-        
     }
 
 

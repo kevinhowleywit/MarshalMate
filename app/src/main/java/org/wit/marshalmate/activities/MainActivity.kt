@@ -24,10 +24,7 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.jetbrains.anko.intentFor
 import org.wit.marshalmate.R
-import org.wit.marshalmate.activities.fragments.HomeScreenFrag
-import org.wit.marshalmate.activities.fragments.AddFragment
-import org.wit.marshalmate.activities.fragments.AllUsersFragment
-import org.wit.marshalmate.activities.fragments.SearchFragment
+import org.wit.marshalmate.activities.fragments.*
 
 import org.wit.marshalmate.main.MainApp
 import org.wit.marshalmate.models.EventModel
@@ -113,7 +110,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         var fragment: Fragment? = null
         //initializing the fragment object which is selected
         when (itemId) {
-            R.id.menu_home -> fragment = HomeScreenFrag()
+            R.id.menu_home -> fragment = HomeFragment()
             R.id.menu_add -> fragment = AddFragment()
             R.id.menu_search -> fragment = SearchFragment()
             R.id.menu_all_users ->fragment=AllUsersFragment()

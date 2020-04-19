@@ -6,6 +6,7 @@
     <color name="statusBarColor">#000000</color>
     <color name="clear">#2196F3</color>
     <color name="white">#ffffff</color>
+    <color name="offwhite">#B9AFAF</color>
     <color name="buttonColour">#2196F3</color>
 
 </resources>
