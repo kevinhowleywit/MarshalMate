@@ -34,7 +34,7 @@ class UserAdapter(val users:ArrayList<Person>,val context:Context):
         holder.bindItems(users[position])
 
         holder.itemView.setOnClickListener{
-            
+
         }
 
     }

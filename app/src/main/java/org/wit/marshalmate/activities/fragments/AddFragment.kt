@@ -73,8 +73,8 @@ class AddFragment : Fragment(),AnkoLogger,OnMapReadyCallback,GoogleMap.OnMarkerD
         marker.setSnippet("GPS : " + loc.toString())
         return false
     }
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         mapView.onDestroy()
     }
     override fun onLowMemory() {
