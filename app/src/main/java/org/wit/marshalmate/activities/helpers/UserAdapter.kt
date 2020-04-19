@@ -32,5 +32,10 @@ class UserAdapter(val users:ArrayList<Person>,val context:Context):
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItems(users[position])
+
+        holder.itemView.setOnClickListener{
+            
+        }
+
     }
 }

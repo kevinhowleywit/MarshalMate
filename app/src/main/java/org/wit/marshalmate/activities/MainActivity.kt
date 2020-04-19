@@ -61,12 +61,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         app =application as MainApp
         app!!.fetchAllEvents()
         app!!.fetchAllUsers()
-
-
-
-
-
-
     }
 
 
@@ -143,8 +137,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         app!!.saveEvent(event)
 
 
-        //setResult(AppCompatActivity.RESULT_OK)
-        //finish()
+    }
+    fun getAllUsers(): ArrayList<Person>{
+        app =application as MainApp
+        var users= app!!.fetchAllUsers()
+        return users
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
