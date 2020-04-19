@@ -47,7 +47,7 @@ class MainApp : Application(), AnkoLogger {
         }
     }
 
-    fun fetchAllEvents(){
+    fun fetchAllEvents():ArrayList<EventModel>{
         ref = FirebaseDatabase.getInstance().getReference("event")
         ref.addValueEventListener(object:ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
@@ -65,6 +65,7 @@ class MainApp : Application(), AnkoLogger {
             }
 
         })
+        return events
     }
 
     fun fetchAllUsers(): ArrayList<Person> {
