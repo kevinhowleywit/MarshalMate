@@ -20,7 +20,6 @@ class RegisterActivity : AppCompatActivity() {
     var app: MainApp? = null
     var person= Person()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
@@ -63,26 +62,7 @@ class RegisterActivity : AppCompatActivity() {
 
         }
     }
-/*
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(org.wit.marshalmate.R.menu.menu_main_activity, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
-
-            org.wit.marshalmate.R.id.item_logout -> {
-                FirebaseAuth.getInstance().signOut()
-
-                val intent = Intent(this, LoginActivity::class.java)
-                this.startActivity(intent)
-                finish()
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-*/
 
     fun showProgress() {
         regProgressBar.visibility = View.VISIBLE

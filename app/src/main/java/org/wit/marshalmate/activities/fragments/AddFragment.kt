@@ -1,6 +1,7 @@
 package org.wit.marshalmate.activities.fragments
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.pm.PackageManager
 import android.location.Location
@@ -20,6 +21,8 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.enter_email_dialog.*
+import kotlinx.android.synthetic.main.enter_email_dialog.view.*
 import kotlinx.android.synthetic.main.fr_add.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -41,12 +44,13 @@ class AddFragment : Fragment(),AnkoLogger,OnMapReadyCallback,GoogleMap.OnMarkerD
     var event =EventModel()
     private lateinit var googleMap:GoogleMap
     var location=PointProperties()
+    private var assignedUser=""
+
 
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        //returning our layout file
-        //change R.layout.yourlayoutfilename for each of your fragments
+        //returning layout file
         return inflater.inflate(R.layout.fr_add, container, false)
     }
     //map config
@@ -58,11 +62,11 @@ class AddFragment : Fragment(),AnkoLogger,OnMapReadyCallback,GoogleMap.OnMarkerD
     override fun onMarkerDrag(marker: Marker) {
     }
     override fun onMarkerDragEnd(marker: Marker) {
-        //sets the list 
+        //sets the list
         location.lat = marker.position.latitude
         location.lng = marker.position.longitude
+        location.assignedUser=assignedUser
         listOfPoints.add(location.copy())
-
     }
     override fun onMarkerClick(marker: Marker): Boolean{
         val loc = LatLng(location.lat, location.lng)
@@ -117,11 +121,31 @@ class AddFragment : Fragment(),AnkoLogger,OnMapReadyCallback,GoogleMap.OnMarkerD
         }
         //handles the button to add a point to the map
         addPointBtn.setOnClickListener{
+            //alert dialog to enter email
+            val mDialogView=LayoutInflater.from(context).inflate(R.layout.enter_email_dialog,null)
+            val mBuilder=AlertDialog.Builder(context).setView(mDialogView).setTitle("Enter email")
+            val mAlertDialog=mBuilder.show()
+            mDialogView.dialogAddEmailBtn.setOnClickListener {
+                assignedUser=mDialogView.dialogEmail.text.toString()
+                if(assignedUser.isNotEmpty()){
+                    Toast.makeText(context,"This user will be assigned",Toast.LENGTH_SHORT).show()
+                    mAlertDialog.dismiss()
+                }
+                else{
+                    Toast.makeText(context,"Please enter a user email",Toast.LENGTH_SHORT).show()
+                }
+
+            }
+            mDialogView.dialogCancelBtn.setOnClickListener {
+                mAlertDialog.dismiss()
+                Toast.makeText(context,"No assigned user for this point",Toast.LENGTH_SHORT).show()
+            }
+            //Point Name Handling
             var pointName=pointNameText.text.toString()
             if (pointName.isNotEmpty()){
                 info{"Point Name $pointName"}
                 val loc= LatLng(52.2474998,-7.1480493)
-                val options=MarkerOptions().title(pointName ).snippet("Test2 " +loc.toString()).draggable(true).position(loc)
+                val options=MarkerOptions().title(pointName ).snippet("marker " +loc.toString()).draggable(true).position(loc)
                 googleMap.addMarker(options)
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc,13f))
                 pointNameText.setText("")
@@ -135,16 +159,22 @@ class AddFragment : Fragment(),AnkoLogger,OnMapReadyCallback,GoogleMap.OnMarkerD
             event.eventName=eventNameText.text.toString()
             event.description=eventDescription.text.toString()
             event.points=listOfPoints
+
             //gets the logged in user from firebase and sets the creator to that email
             val user = FirebaseAuth.getInstance().currentUser
             event.creator=user?.email.toString()
-            if (event.eventName.isNotEmpty() && event.description.isNotEmpty()){
-                info { "add pressed: $event"}
-                //passes the event to the main activity where it is saved
-                (activity as MainActivity).handleAddingEvents(event)
+            if (event.year!=0){
+                if (event.eventName.isNotEmpty() && event.description.isNotEmpty()){
+                    info { "add pressed: $event"}
+                    //passes the event to the main activity where it is saved
+                    (activity as MainActivity).handleAddingEvents(event)
+                }
+                else{
+                    Toast.makeText(context,"Please fill out all fields",Toast.LENGTH_SHORT).show()
+                }
             }
             else{
-                Toast.makeText(context,"Please fill out all fields",Toast.LENGTH_SHORT).show()
+                Toast.makeText(context,"Please enter a date",Toast.LENGTH_SHORT).show()
             }
         }
     }

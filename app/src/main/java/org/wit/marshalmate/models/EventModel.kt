@@ -31,7 +31,7 @@ data class EventModel(@PrimaryKey(autoGenerate = true)
                         var month:Int=0,
                         var day:Int=0,
                         @Embedded
-                        var points : ArrayList<PointProperties>): Parcelable{constructor():this(0,"emptyId","empty","empty","empty",mYear,mMonth,mDay,listOfPoints)}
+                        var points : ArrayList<PointProperties>): Parcelable{constructor():this(0,"emptyId","empty","empty","empty",0,0,0,listOfPoints)}
 
 
 @Parcelize

@@ -8,5 +8,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textEmailAddress" />
+        android:hint="Enter email of person to assign"
+        android:inputType="textEmailAddress"
+        android:paddingBottom="8dp"
+        android:paddingEnd="8dp"
+        android:paddingHorizontal="8dp"
+
+        android:textAlignment="center" />
+
+    <Button
+        android:id="@+id/dialogAddEmailBtn"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Add" />
+
+    <Button
+        android:id="@+id/dialogCancelBtn"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Cancel" />
+
 </LinearLayout>
