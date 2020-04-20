@@ -9,9 +9,9 @@
         android:id="@+id/yourOwnedEvents"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@color/offwhite"
+        android:background="@color/darkerBlue"
         android:ems="10"
+        android:textColor="@color/white"
         android:inputType="textPersonName"
         android:text="Your Owned Events"
         android:textAlignment="center"
@@ -20,12 +20,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/upcomingText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="300dp"
+        android:background="@color/darkerBlue"
+        android:ems="10"
+        android:textColor="@color/white"
+
+        android:inputType="textPersonName"
+        android:text="Upcoming Assignments"
+        android:textAlignment="center"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ScrollView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/upcomingText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/yourOwnedEvents"
-        tools:layout_editor_absoluteX="8dp"
         tools:ignore="MissingConstraints">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/ownedEventsRecylcerView"
             android:layout_width="match_parent"
@@ -35,5 +58,25 @@
 
 
     </ScrollView>
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/upcomingText">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/upcomingEventsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+    </ScrollView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
