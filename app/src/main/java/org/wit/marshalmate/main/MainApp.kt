@@ -70,7 +70,6 @@ class MainApp : Application(), AnkoLogger {
 
     fun fetchOwnedEvents(owner: String):ArrayList<EventModel>{
         var fetchownedevents=fetchAllEvents()
-
         var ownedEvents=ArrayList<EventModel>()
         ownedEvents.clear()
         for (i in fetchownedevents){
@@ -92,12 +91,9 @@ class MainApp : Application(), AnkoLogger {
                 }
             }
         }
-
-
         return fetchPartOfEvents
 
     }
-
     fun fetchAllUsers(): ArrayList<Person> {
         ref = FirebaseDatabase.getInstance().getReference("person")
         ref.addValueEventListener(object:ValueEventListener{
@@ -112,9 +108,7 @@ class MainApp : Application(), AnkoLogger {
                         info{"Fetching users:$person"}
                     }
                 }
-
             }
-
         })
         return people
     }
