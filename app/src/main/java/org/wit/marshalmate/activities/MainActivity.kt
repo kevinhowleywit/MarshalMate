@@ -1,42 +1,34 @@
 package org.wit.marshalmate.activities
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.*
 import com.google.android.material.navigation.NavigationView
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.ActionBarDrawerToggle
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationResult
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.fr_add.*
-import kotlinx.android.synthetic.main.fr_search.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
-import org.jetbrains.anko.intentFor
 import org.wit.marshalmate.R
 import org.wit.marshalmate.activities.fragments.*
 
 import org.wit.marshalmate.main.MainApp
 import org.wit.marshalmate.models.EventModel
 import org.wit.marshalmate.models.Person
-import org.wit.marshalmate.models.PointProperties
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,AnkoLogger {
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     var app: MainApp? = null
     val LOCATION_REQUEST=2
-    var person=Person()
+    val user = FirebaseAuth.getInstance().currentUser
+    val owner=user?.email.toString()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -146,6 +138,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         var events=app!!.fetchAllEvents()
         return events
     }
+
+    fun getOwnedEvents():ArrayList<EventModel>{
+        app = application as MainApp
+        var events=app!!.fetchOwnedEvents(owner)
+        return events
+    }
+    fun getPartOfEvents():ArrayList<EventModel>{
+        app = application as MainApp
+        var events=app!!.fetchPartOfEvents(owner)
+        return events
+    }
+
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -166,7 +166,9 @@ class AddFragment : Fragment(),AnkoLogger,OnMapReadyCallback,GoogleMap.OnMarkerD
             if (event.year!=0){
                 if (event.eventName.isNotEmpty() && event.description.isNotEmpty()){
                     info { "add pressed: $event"}
-                    //passes the event to the main activity where it is saved
+
+                    //passes the event to the main activity
+                    //where it is then fed to MainApp to save
                     (activity as MainActivity).handleAddingEvents(event)
                 }
                 else{

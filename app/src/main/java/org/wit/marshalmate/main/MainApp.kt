@@ -2,19 +2,19 @@ package org.wit.marshalmate.main
 
 import android.app.Application
 import android.widget.Toast
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.wit.marshalmate.models.*
+
+
 
 class MainApp : Application(), AnkoLogger {
 
     var events=ArrayList<EventModel>()
     var people=ArrayList<Person>()
     lateinit var ref:DatabaseReference
+
 
     override fun onCreate() {
         super.onCreate()
@@ -66,6 +66,36 @@ class MainApp : Application(), AnkoLogger {
 
         })
         return events
+    }
+
+    fun fetchOwnedEvents(owner: String):ArrayList<EventModel>{
+        var fetchownedevents=fetchAllEvents()
+
+        var ownedEvents=ArrayList<EventModel>()
+        ownedEvents.clear()
+        for (i in fetchownedevents){
+            if(i.creator.equals(owner)){
+                ownedEvents.add(i.copy())
+            }
+        }
+        return ownedEvents
+    }
+    fun fetchPartOfEvents(owner: String):ArrayList<EventModel>{
+        info { "fetchPartOfEvents" }
+        var allEvents=fetchAllEvents()
+        var fetchPartOfEvents=ArrayList<EventModel>()
+        fetchPartOfEvents.clear()
+        for(i in allEvents){
+            for(j in i.points){
+                if(j.assignedUser.equals(owner)){
+                    fetchPartOfEvents.add(i)
+                }
+            }
+        }
+
+
+        return fetchPartOfEvents
+
     }
 
     fun fetchAllUsers(): ArrayList<Person> {
