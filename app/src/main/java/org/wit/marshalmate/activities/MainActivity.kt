@@ -127,6 +127,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
     }
+
+
+    //various Main app function calls
+    fun handleUpdateEvent(event: EventModel){
+        app=application as MainApp
+        app!!.updateEvent(event)
+
+    }
+
     fun getAllUsers(): ArrayList<Person>{
         app =application as MainApp
         var users= app!!.fetchAllUsers()
@@ -149,8 +158,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         var events=app!!.fetchPartOfEvents(owner)
         return events
     }
-
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

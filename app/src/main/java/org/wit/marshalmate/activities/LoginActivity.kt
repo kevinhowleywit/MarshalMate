@@ -14,10 +14,7 @@ import org.wit.marshalmate.R
 class LoginActivity : AppCompatActivity() {
 
      var mAuth: FirebaseAuth? = null
-    /*val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-        .requestIdToken(getString(R.string.default_web_client_id))
-        .requestEmail()
-        .build()*/
+
 
 
 
@@ -29,9 +26,6 @@ class LoginActivity : AppCompatActivity() {
         actionBar?.hide()
         hideProgress()
         var auth: FirebaseAuth =FirebaseAuth.getInstance()
-        regEmail.setText("test@test.com")
-        regPassword.setText("Memes1234")
-
 
         loginBtn.setOnClickListener {
 
@@ -62,7 +56,6 @@ class LoginActivity : AppCompatActivity() {
 
         }
     }
-
 
      fun showProgress() {
         progressbar.visibility = View.VISIBLE

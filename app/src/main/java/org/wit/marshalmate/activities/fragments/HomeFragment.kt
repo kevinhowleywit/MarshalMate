@@ -39,27 +39,7 @@ class HomeFragment : Fragment(),AnkoLogger,EventListener {
         ownedEvents=(activity as MainActivity).getOwnedEvents()
         eventPartOf=(activity as MainActivity).getPartOfEvents()
 
-        /*
-        ownedEvents.clear()
-        for (i in events){
-            if(i.creator.equals(owner)){
-                ownedEvents.add(i.copy())
-            }
-        }*/
 
-
-        //getting events that the user is a part of
-        /*
-        eventPartOf.clear()
-        for(i in events){
-            for(j in i.points){
-                if(j.assignedUser.equals(owner)){
-                    eventPartOf.add(i)
-                }
-            }
-        }*/
-
-        //duplicate remover
 
 
         //pass the events to recycler views
@@ -82,24 +62,28 @@ class HomeFragment : Fragment(),AnkoLogger,EventListener {
 
     override fun onEventClick(event: EventModel) {
         if (event.creator.equals(owner)){
-            Toast.makeText(context,"This is an owned event", Toast.LENGTH_SHORT).show()
+            //opens the edit fragment
+            //Toast.makeText(context,"This is an owned event", Toast.LENGTH_SHORT).show()
+            val bundle=Bundle()
+            bundle.putParcelable("event",event)
             val t: FragmentTransaction = this.fragmentManager!!.beginTransaction()
             val mFrag: Fragment = EditFragment()
+            mFrag.arguments=bundle
             t.replace(R.id.content_frame, mFrag)
             t.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             t.commit()
 
         }
         else{
-            Toast.makeText(context,"Not Owned", Toast.LENGTH_SHORT).show()
-
+            //opens the VIEW fragments
+            //Toast.makeText(context,"Not Owned", Toast.LENGTH_SHORT).show()
             val bundle=Bundle()
             bundle.putParcelable("event",event)
-
             val t: FragmentTransaction = this.fragmentManager!!.beginTransaction()
             val mFrag: Fragment = ViewFragment()
             mFrag.arguments=bundle
             t.replace(R.id.content_frame, mFrag)
+            t.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             t.commit()
         }
 

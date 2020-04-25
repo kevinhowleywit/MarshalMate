@@ -44,14 +44,6 @@ class HomeActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         toggle.syncState()
         navView.setNavigationItemSelectedListener(this)
 
-        //welcom message code
-        /*
-        val user = FirebaseAuth.getInstance().currentUser
-        if (user !=null){
-            //welcomeText.setText("Welcome ${user.email}")
-        }*/
-
-
         homeFragment= HomeFragment()
         supportFragmentManager.beginTransaction().replace(R.id.drawer_layout,homeFragment)
 

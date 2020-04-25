@@ -46,6 +46,16 @@ class MainApp : Application(), AnkoLogger {
             }
         }
     }
+    fun updateEvent(event: EventModel){
+        //Toast.makeText(this,"Save changes button clicked",Toast.LENGTH_SHORT).show()
+        ref = FirebaseDatabase.getInstance().getReference("event")
+        ref.child(event.fbId).setValue(event)
+        Toast.makeText(applicationContext,"Updated Successfully",Toast.LENGTH_SHORT).show()
+
+
+
+
+    }
 
     fun fetchAllEvents():ArrayList<EventModel>{
         ref = FirebaseDatabase.getInstance().getReference("event")
@@ -61,7 +71,6 @@ class MainApp : Application(), AnkoLogger {
                         info{"Fetching event:$event"}
                     }
                 }
-
             }
 
         })

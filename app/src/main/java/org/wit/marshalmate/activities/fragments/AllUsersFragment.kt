@@ -26,10 +26,7 @@ class AllUsersFragment : Fragment(),AnkoLogger,UserListener {
 
     private var users=ArrayList<Person>()
 
-    //private var myClipboard: ClipboardManager? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        //returning our layout file
-        //change R.layout.yourlayoutfilename for each of your fragments
         return inflater.inflate(R.layout.fr_all_users, container, false)
 
 
@@ -44,9 +41,6 @@ class AllUsersFragment : Fragment(),AnkoLogger,UserListener {
         val mUserAdapter=UserAdapter(users,this)
         allUsersRecyclerView.layoutManager=LinearLayoutManager(context)
         allUsersRecyclerView.adapter=mUserAdapter
-
-
-
     }
 
     override fun onUserClick(person: Person) {
@@ -58,10 +52,6 @@ class AllUsersFragment : Fragment(),AnkoLogger,UserListener {
         Toast.makeText(context,"Email Copied",Toast.LENGTH_SHORT).show()
 
     }
-
-
-    //you can set the title for your toolbar here for different fragments different titles
-
 
 }
 
